@@ -5,10 +5,12 @@ import Navbar from './Navbar'
 
 export default function MainNavigation() {
   return (
-   <>
-    <Navbar/>
-    <Outlet/>
-    <Footer/>
-   </>
+    <>
+      <Navbar />
+      <main>
+        <Outlet />
+      </main>
+      <Footer />
+    </>
   )
 }

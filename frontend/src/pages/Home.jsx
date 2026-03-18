@@ -1,44 +1,73 @@
 import React, { useState } from 'react'
-import foodRecipe from '../assets/foodRecipe.png'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
 import RecipeItems from '../components/RecipeItems'
 import { useNavigate } from 'react-router-dom'
 import Modal from '../components/Modal'
 import InputForm from '../components/InputForm'
 
 export default function Home() {
-    const navigate = useNavigate()
-    const [isOpen, setIsOpen] = useState(false)
+  const navigate = useNavigate()
+  const [isOpen, setIsOpen] = useState(false)
 
-    const addRecipe = () => {
-        let token = localStorage.getItem("token")
-        if (token)
-            navigate("/addRecipe")
-        else {
-            setIsOpen(true)
-        }
-    }
+  const addRecipe = () => {
+    let token = localStorage.getItem("token")
+    if (token) navigate("/addRecipe")
+    else setIsOpen(true)
+  }
 
-    return (
-        <>
-            <section className='home'>
-                <div className='left'>
-                    <h1>Food Recipe</h1>
-                    <h5>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</h5>
-                    <button onClick={addRecipe}>Share your recipe</button>
-                </div>
-                <div className='right'>
-                    <img src={foodRecipe} width="320px" height="300px"></img>
-                </div>
-            </section>
-            <div className='bg'>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#d4f6e8" fillOpacity="1" d="M0,32L40,32C80,32,160,32,240,58.7C320,85,400,139,480,149.3C560,160,640,128,720,101.3C800,75,880,53,960,80C1040,107,1120,181,1200,213.3C1280,245,1360,235,1400,229.3L1440,224L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path></svg>
-            </div>
-            {(isOpen) && <Modal onClose={() => setIsOpen(false)}><InputForm setIsOpen={() => setIsOpen(false)} /></Modal>}
-            <div className='recipe'>
-                <RecipeItems />
-            </div>
-        </>
-    )
+  return (
+    <>
+      {/* Hero Section */}
+      <section className="hero-section">
+        {/* Floating decorative emojis */}
+        <span className="hero-deco" aria-hidden="true">🍕</span>
+        <span className="hero-deco" aria-hidden="true">🥗</span>
+        <span className="hero-deco" aria-hidden="true">🍰</span>
+        <span className="hero-deco" aria-hidden="true">🥘</span>
+        <span className="hero-deco" aria-hidden="true">🍜</span>
+        <span className="hero-deco" aria-hidden="true">🧁</span>
+
+        <div className="hero-content">
+          <div className="hero-badge">🔥 Your Digital Cookbook</div>
+          <h1 className="hero-title">
+            Cook, Share &<br />
+            <span className="gradient-text">Discover Recipes</span>
+          </h1>
+          <p className="hero-description">
+            Your personal recipe diary where you can store, organize, and share
+            your favorite dishes with friends and the community. Start your
+            culinary journey today!
+          </p>
+          <button className="hero-cta" onClick={addRecipe}>
+            <span>🍳</span> Share Your Recipe
+          </button>
+        </div>
+
+        {/* Decorative wave */}
+        <div className="hero-wave">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
+            <path
+              fill="rgba(26,25,40,0.6)"
+              d="M0,64L48,58.7C96,53,192,43,288,48C384,53,480,75,576,80C672,85,768,75,864,64C960,53,1056,43,1152,48C1248,53,1344,75,1392,85.3L1440,96L1440,120L0,120Z"
+            />
+          </svg>
+        </div>
+      </section>
+
+      {/* Recipes Grid */}
+      <section className="recipes-section">
+        <div className="section-header">
+          <h2>🍽️ Latest Recipes</h2>
+          <p>Explore delicious recipes shared by our community</p>
+        </div>
+        <RecipeItems />
+      </section>
+
+      {/* Auth Modal */}
+      {isOpen && (
+        <Modal onClose={() => setIsOpen(false)}>
+          <InputForm setIsOpen={() => setIsOpen(false)} />
+        </Modal>
+      )}
+    </>
+  )
 }
