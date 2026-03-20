@@ -8,7 +8,8 @@ import AddFoodRecipe from "./pages/AddFoodRecipe";
 import EditRecipe from "./pages/EditRecipe";
 import RecipeDetails from "./pages/RecipeDetails";
 
-const API = "http://localhost:5000";
+// ✅ Use environment variable (BEST PRACTICE)
+const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 // GET ALL RECIPES
 const getAllRecipes = async () => {
