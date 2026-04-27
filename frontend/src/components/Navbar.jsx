@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Modal from './Modal'
 import InputForm from './InputForm'
+import CartIcon from './CartIcon'
 import { NavLink } from 'react-router-dom'
 
 export default function Navbar() {
@@ -45,15 +46,20 @@ export default function Navbar() {
         </NavLink>
 
         <button className="menu-toggle" onClick={() => setMenuOpen(prev => !prev)} aria-label="Toggle menu">
-          <span></span>
-          <span></span>
-          <span></span>
+          <span className={menuOpen ? 'open-bar-1' : ''}></span>
+          <span className={menuOpen ? 'open-bar-2' : ''}></span>
+          <span className={menuOpen ? 'open-bar-3' : ''}></span>
         </button>
 
         <ul className={`navbar-links ${menuOpen ? 'open' : ''}`}>
           <li>
-            <NavLink to="/" onClick={closeMenu}>
+            <NavLink to="/" end onClick={closeMenu}>
               🏠 Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dishes" onClick={closeMenu}>
+              🍽️ Dishes
             </NavLink>
           </li>
           <li onClick={() => { if (isLogin) setIsOpen(true) }}>
@@ -65,6 +71,14 @@ export default function Navbar() {
             <NavLink to={!isLogin ? "/favRecipe" : "/"} onClick={closeMenu}>
               ❤️ Favourites
             </NavLink>
+          </li>
+          <li>
+            <NavLink to="/orders" onClick={closeMenu}>
+              📦 Orders
+            </NavLink>
+          </li>
+          <li className="cart-nav-item">
+            <CartIcon />
           </li>
           <li>
             {isLogin ? (

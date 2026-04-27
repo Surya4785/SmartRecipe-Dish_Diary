@@ -7,6 +7,12 @@ import axios from "axios";
 import AddFoodRecipe from "./pages/AddFoodRecipe";
 import EditRecipe from "./pages/EditRecipe";
 import RecipeDetails from "./pages/RecipeDetails";
+import Dishes from "./pages/Dishes";
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+import Orders from "./pages/Orders";
+import { CartProvider } from "./context/CartContext";
+import { OrderProvider } from "./context/OrderContext";
 
 // ✅ Use environment variable (BEST PRACTICE)
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
@@ -78,11 +84,21 @@ const router = createBrowserRouter([
       { path: "/favRecipe", element: <Home />, loader: getFavRecipes },
       { path: "/addRecipe", element: <AddFoodRecipe /> },
       { path: "/editRecipe/:id", element: <EditRecipe /> },
-      { path: "/recipe/:id", element: <RecipeDetails />, loader: getRecipe }
+      { path: "/recipe/:id", element: <RecipeDetails />, loader: getRecipe },
+      { path: "/dishes", element: <Dishes /> },
+      { path: "/cart", element: <Cart /> },
+      { path: "/checkout", element: <Checkout /> },
+      { path: "/orders", element: <Orders /> },
     ]
   }
 ]);
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <CartProvider>
+      <OrderProvider>
+        <RouterProvider router={router} />
+      </OrderProvider>
+    </CartProvider>
+  );
 }
