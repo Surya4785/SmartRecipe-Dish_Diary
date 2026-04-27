@@ -11,6 +11,9 @@ app.use(express.json())
 app.use(cors())
 app.use(express.static("public"))
 
+// Keep-alive health check — pinged by frontend every 14 min to prevent Render free-tier sleep
+app.get("/health", (req, res) => res.status(200).json({ status: "ok" }))
+
 app.use("/",require("./routes/user"))
 app.use("/recipe",require("./routes/recipe"))
 

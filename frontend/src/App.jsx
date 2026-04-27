@@ -13,6 +13,7 @@ import Checkout from "./pages/Checkout";
 import Orders from "./pages/Orders";
 import { CartProvider } from "./context/CartContext";
 import { OrderProvider } from "./context/OrderContext";
+import useKeepAlive from "./hooks/useKeepAlive";
 
 // ✅ Use environment variable (BEST PRACTICE)
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
@@ -94,6 +95,7 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
+  useKeepAlive(); // 🏓 Pings /health every 14 min — keeps Render free tier awake
   return (
     <CartProvider>
       <OrderProvider>
